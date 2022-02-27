@@ -53,14 +53,14 @@ class TestRefactoringExercise(unittest.TestCase):
 
         game._ask_question()
 
-        capturedOutput = io.StringIO()                  # Create StringIO object
-        sys.stdout = capturedOutput   
+        printToString = io.StringIO()                  # Create StringIO object
+        sys.stdout = printToString   
 
         game._ask_question()
 
         sys.stdout = sys.__stdout__ 
 
-        self.assertEqual(capturedOutput.getvalue(), 'Pop Question 1\n')
+        self.assertEqual(printToString.getvalue(), 'Pop Question 1\n')
         
     def test_player_position_is_zero(self):
         game = Game()
