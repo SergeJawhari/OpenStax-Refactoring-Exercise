@@ -1,1 +1,0 @@
-        game.wrong_answer()
