@@ -83,6 +83,28 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertFalse(game.in_penalty_box[game.current_player])
 
+    def test_odd_roll_gets_out_of_penalty(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.in_penalty_box[game.current_player] = True
+
+        game.roll(5)
+
+        self.assertTrue(game.is_getting_out_of_penalty_box) 
+
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
