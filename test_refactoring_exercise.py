@@ -1,4 +1,5 @@
-from audioop import add
+import io
+import sys
 import unittest
 from refactoring_exercise import Game
 
@@ -44,6 +45,23 @@ class TestRefactoringExercise(unittest.TestCase):
         game.add('Chet')
 
         self.assertFalse(game.is_playable())
+
+    def test_next_question_up(self):
+        game = Game()
+
+        game._current_category == 'Pop'
+
+        game._ask_question()
+
+        capturedOutput = io.StringIO()                  # Create StringIO object
+        sys.stdout = capturedOutput   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        self.assertEqual(capturedOutput.getvalue(), 'Pop Question 1\n')
+        
 
 
 if __name__ == '__main__':
