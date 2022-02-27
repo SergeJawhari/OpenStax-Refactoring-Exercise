@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import io
 import sys
 import unittest
@@ -247,6 +248,8 @@ class TestRefactoringExercise(unittest.TestCase):
 
         game.add('Chet')
 
+        game.places[game.current_player] = 0
+
         printToString = io.StringIO() 
         sys.stdout = printToString   
 
@@ -261,7 +264,7 @@ class TestRefactoringExercise(unittest.TestCase):
 
         game.add('Chet')
 
-        game.roll(1)
+        game.places[game.current_player] = 1
 
         printToString = io.StringIO() 
         sys.stdout = printToString   
@@ -270,14 +273,14 @@ class TestRefactoringExercise(unittest.TestCase):
 
         sys.stdout = sys.__stdout__ 
 
-        self.assertEqual(printToString.getvalue(), 'Science Question 1\n')
+        self.assertEqual(printToString.getvalue(), 'Science Question 0\n')
 
     def test_right_question_asked_sports(self):
         game = Game()
 
         game.add('Chet')
 
-        game.roll(2)
+        game.places[game.current_player] = 2
 
         printToString = io.StringIO() 
         sys.stdout = printToString   
@@ -286,14 +289,14 @@ class TestRefactoringExercise(unittest.TestCase):
 
         sys.stdout = sys.__stdout__ 
 
-        self.assertEqual(printToString.getvalue(), 'Sports Question 1\n')
+        self.assertEqual(printToString.getvalue(), 'Sports Question 0\n')
 
     def test_right_question_asked_rock(self):
         game = Game()
 
         game.add('Chet')
 
-        game.roll(3)
+        game.places[game.current_player] = 3
 
         printToString = io.StringIO() 
         sys.stdout = printToString   
@@ -302,7 +305,7 @@ class TestRefactoringExercise(unittest.TestCase):
 
         sys.stdout = sys.__stdout__ 
 
-        self.assertEqual(printToString.getvalue(), 'Rock Question 1\n')
+        self.assertEqual(printToString.getvalue(), 'Rock Question 0\n')
 
     def test_question_gets_popped(self):
         game = Game()
@@ -313,6 +316,53 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertEqual(len(game.pop_questions),49)
 
+    def test_getting_out_of_penalty_correct_answer(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.in_penalty_box[game.current_player] = True
+        game.is_getting_out_of_penalty_box = True
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game.was_correctly_answered()
+
+        sys.stdout = sys.__stdout__ 
+
+        self.assertEqual(printToString.getvalue(),'Answer was correct!!!!\nChet now has 1 Gold Coins.\n')
+
+    def test_not_getting_out_of_penalty_correct_answer(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.in_penalty_box[game.current_player] = True
+        game.is_getting_out_of_penalty_box = False
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game.was_correctly_answered()
+
+        sys.stdout = sys.__stdout__ 
+
+        self.assertEqual(printToString.getvalue(), '')
+
+    def test_move_on_to_next_player(self):
+        game = Game()
+
+        game.add('Chet')
+        game.add('Phil')
+        game.add('Bob')
+        game.add('Tom')
+
+        game.was_correctly_answered()
+        game.was_correctly_answered()
+        game.was_correctly_answered()
+
+        self.assertEqual(game.current_player, 3)
 
         
 
