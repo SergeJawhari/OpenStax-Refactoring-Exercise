@@ -83,7 +83,7 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertFalse(game.in_penalty_box[game.current_player])
 
-    def test_odd_roll_gets_out_of_penalty(self):
+    def test_odd_roll_sets_get_out_variable_to_true(self):
         game = Game()
 
         game.add('Chet')
@@ -92,9 +92,39 @@ class TestRefactoringExercise(unittest.TestCase):
 
         game.roll(5)
 
-        self.assertTrue(game.is_getting_out_of_penalty_box) 
+        self.assertTrue(game.is_getting_out_of_penalty_box)
 
+    def test_player_position(self):
+        game = Game()
 
+        game.add('Chet')
+
+        game.roll(5)
+        game.roll(3)
+
+        self.assertEqual(game.places[game.current_player], 8)
+
+    def test_player_position_looping(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(6)
+        game.roll(5)
+        game.roll(4)
+
+        self.assertEqual(game.places[game.current_player], 3)
+
+    def test_even_roll_sets_get_out_variable_to_False(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.in_penalty_box[game.current_player] = True
+
+        game.roll(4)
+
+        self.assertFalse(game.is_getting_out_of_penalty_box)
 
 
 
