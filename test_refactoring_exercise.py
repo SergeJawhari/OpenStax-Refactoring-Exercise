@@ -468,5 +468,6 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertEqual(game.current_player, 2)
 
+# The main function that will run all of the tests.
 if __name__ == '__main__':
     unittest.main()
