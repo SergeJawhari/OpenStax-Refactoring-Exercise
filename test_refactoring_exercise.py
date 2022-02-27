@@ -53,7 +53,7 @@ class TestRefactoringExercise(unittest.TestCase):
 
         game._ask_question()
 
-        printToString = io.StringIO()                  # Create StringIO object
+        printToString = io.StringIO() 
         sys.stdout = printToString   
 
         game._ask_question()
@@ -94,6 +94,17 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertTrue(game.is_getting_out_of_penalty_box)
 
+    def test_even_roll_sets_get_out_variable_to_False(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.in_penalty_box[game.current_player] = True
+
+        game.roll(4)
+
+        self.assertFalse(game.is_getting_out_of_penalty_box)
+
     def test_player_position(self):
         game = Game()
 
@@ -115,16 +126,198 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertEqual(game.places[game.current_player], 3)
 
-    def test_even_roll_sets_get_out_variable_to_False(self):
+    def test_position_zero_pop(self):
         game = Game()
 
         game.add('Chet')
 
-        game.in_penalty_box[game.current_player] = True
+        self.assertEqual(game._current_category, 'Pop')
+
+    def test_position_four_pop(self):
+        game = Game()
+
+        game.add('Chet')
 
         game.roll(4)
 
-        self.assertFalse(game.is_getting_out_of_penalty_box)
+        self.assertEqual(game._current_category, 'Pop')
+
+    def test_position_eight_pop(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(4)
+        game.roll(4)
+
+        self.assertEqual(game._current_category, 'Pop')
+
+    def test_position_one_science(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(1)
+
+        self.assertEqual(game._current_category, 'Science')
+
+    def test_position_five_science(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(1)
+        game.roll(4)
+
+        self.assertEqual(game._current_category, 'Science')
+
+    def test_position_nine_science(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(1)
+        game.roll(4)
+        game.roll(4)
+
+        self.assertEqual(game._current_category, 'Science')
+
+    def test_position_two_sports(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(2)
+
+        self.assertEqual(game._current_category, 'Sports')
+
+    def test_position_six_sports(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(2)
+        game.roll(4)
+
+        self.assertEqual(game._current_category, 'Sports')
+
+    def test_position_ten_sports(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(2)
+        game.roll(4)
+        game.roll(4)
+
+        self.assertEqual(game._current_category, 'Sports')
+
+    def test_position_three_rock(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(3)
+
+        self.assertEqual(game._current_category, 'Rock')
+
+    def test_position_seven_rock(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(3)
+        game.roll(4)
+
+        self.assertEqual(game._current_category, 'Rock')
+
+    def test_position_eleven_rock(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(3)
+        game.roll(4)
+        game.roll(4)
+
+        self.assertEqual(game._current_category, 'Rock')
+
+    def test_right_question_asked_pop(self):
+        game = Game()
+
+        game.add('Chet')
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        self.assertEqual(printToString.getvalue(), 'Pop Question 0\n')
+
+    def test_right_question_asked_science(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(1)
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        self.assertEqual(printToString.getvalue(), 'Science Question 1\n')
+
+    def test_right_question_asked_sports(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(2)
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        self.assertEqual(printToString.getvalue(), 'Sports Question 1\n')
+
+    def test_right_question_asked_rock(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(3)
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        self.assertEqual(printToString.getvalue(), 'Rock Question 1\n')
+
+    def test_question_gets_popped(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.roll(4)
+
+        self.assertEqual(len(game.pop_questions),49)
+
+
+        
+
+
+
 
 
 
