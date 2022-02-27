@@ -364,6 +364,44 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertEqual(game.current_player, 3)
 
+    def test_correct_answer_reward(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.was_correctly_answered()
+        game.was_correctly_answered()
+
+        self.assertEqual(game.purses[game.current_player], 2)
+
+    def test_players_list_order_loops(self):
+        game = Game()
+
+        game.add('Chet')
+        game.add('Phil')
+        game.add('Bob')
+        game.add('Tom')
+
+        game.was_correctly_answered()
+        game.was_correctly_answered()
+        game.was_correctly_answered()
+        game.was_correctly_answered()
+
+        self.assertEqual(game.current_player, 0)
+
+    def test_if_six_coins_wins(self):
+        game = Game()
+
+        game.purses[game.current_player] = 6
+
+        self.assertFalse(game._did_player_win())
+
+    def test_if_less_than_six_coins_does_not_win(self):
+        game = Game()
+
+        game.purses[game.current_player] = 5
+
+        self.assertTrue(game._did_player_win())
         
 
 
