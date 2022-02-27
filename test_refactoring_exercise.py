@@ -21,13 +21,6 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertEqual(in_right_position, True)
 
-    def test_player_matches_roll(self):
-        game = Game()
-
-        game.add('Chet')
-        print(game.roll)
-
-        self.assertEqual(game.players[game.current_player],game.roll(6))
 
 if __name__ == '__main__':
     unittest.main()
