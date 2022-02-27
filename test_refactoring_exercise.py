@@ -1,7 +1,7 @@
-import io
-import sys
-import unittest
-from refactoring_exercise import Game
+import io # This module is used for catching output streams and converting them to a string. Reference: https://docs.python.org/3/library/io.html
+import sys # This module is used for getting the output of the print() statements. Reference: https://docs.python.org/3/library/sys.html
+import unittest # Unit testing framework used for building custom tests for methods. Reference: https://docs.python.org/3/library/unittest.html
+from refactoring_exercise import Game # Importing the Game class from the main refactoring exercise python file.
 
 # This class consists of all test scenarios for the Game class
 class TestRefactoringExercise(unittest.TestCase):
@@ -61,13 +61,17 @@ class TestRefactoringExercise(unittest.TestCase):
 
         game._ask_question()
 
+        # Initialize a variable as a StringIO object that can be used to catch the output.
         printToString = io.StringIO() 
+        # This will 'redirect' the stdout and make it equal to the printToString variable.
         sys.stdout = printToString   
 
         game._ask_question()
 
+        # This will signal the end of the stdout segment and capture it.
         sys.stdout = sys.__stdout__ 
 
+        # printToString.getValue() will get the string value of the stdout and compare it to the expected value.
         self.assertEqual(printToString.getvalue(), 'Pop Question 1\n')
 
     # Verify that the position (places) of a new player added is 0.    
