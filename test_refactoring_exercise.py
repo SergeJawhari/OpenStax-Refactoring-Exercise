@@ -62,6 +62,26 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertEqual(capturedOutput.getvalue(), 'Pop Question 1\n')
         
+    def test_player_position_is_zero(self):
+        game = Game()
+
+        game.add('Chet')
+
+        self.assertEqual(game.places[game.current_player], 0)
+
+    def test_player_purse_is_zero(self):
+        game = Game()
+
+        game.add('Chet') 
+
+        self.assertEqual(game.purses[game.current_player], 0)
+
+    def test_player_not_in_penalty(self):
+        game = Game()
+
+        game.add('Chet') 
+
+        self.assertFalse(game.in_penalty_box[game.current_player])
 
 
 if __name__ == '__main__':
