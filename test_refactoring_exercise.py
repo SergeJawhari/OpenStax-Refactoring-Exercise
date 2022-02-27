@@ -402,20 +402,27 @@ class TestRefactoringExercise(unittest.TestCase):
         game.purses[game.current_player] = 5
 
         self.assertTrue(game._did_player_win())
-        
 
+    def test_wrong_answer_penalty(self):
+        game = Game()
 
+        game.add('Chet')
 
+        game.wrong_answer()
 
+        self.assertTrue(game.in_penalty_box[game.current_player])
 
+    def test_wrong_answer_next_player(self):
+        game = Game()
 
+        game.add('Chet')
+        game.add('Phil')
+        game.add('Bob')
 
+        game.wrong_answer()
+        game.wrong_answer()
 
-
-
-
-
-
+        self.assertEqual(game.current_player, 2)
 
 if __name__ == '__main__':
     unittest.main()
