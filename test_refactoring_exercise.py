@@ -19,7 +19,31 @@ class TestRefactoringExercise(unittest.TestCase):
         game.add('Phil')
         in_right_position = len(game.players) == 3
 
-        self.assertEqual(in_right_position, True)
+        self.assertTrue(in_right_position)
+
+    def test_how_many_players(self):
+        game = Game()
+
+        game.add('Chet')
+        game.add('Bob')
+        game.add('Sal')
+
+        self.assertEqual(game.how_many_players, 3)
+
+    def test_game_is_playable(self):
+        game = Game()
+
+        game.add('Chet')
+        game.add('Bob')
+
+        self.assertTrue(game.is_playable())
+
+    def test_game_is_not_playable(self):
+        game = Game()
+
+        game.add('Chet')
+
+        self.assertFalse(game.is_playable())
 
 
 if __name__ == '__main__':
