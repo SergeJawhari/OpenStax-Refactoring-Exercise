@@ -6,7 +6,6 @@ from refactoring_exercise import Game # Importing the Game class from the main r
 # This class consists of all test scenarios for the Game class
 class TestRefactoringExercise(unittest.TestCase):
 
-
     # Verify that the correct player was added to the roster.
     def test_correct_player_added(self):
         game = Game()
