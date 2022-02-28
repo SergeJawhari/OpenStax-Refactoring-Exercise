@@ -83,24 +83,23 @@ class Game:
         return 'Rock'
 
     def was_correctly_answered(self):
-        if self.in_penalty_box[self.current_player]:
-            if self.is_getting_out_of_penalty_box:
-                print('Answer was correct!!!!')
-                self.purses[self.current_player] += 1
-                print(self.players[self.current_player] + \
-                    ' now has ' + \
-                    str(self.purses[self.current_player]) + \
-                    ' Gold Coins.')
+        if self.in_penalty_box[self.current_player] and self.is_getting_out_of_penalty_box:
+            print('Answer was correct!!!!')
+            self.purses[self.current_player] += 1
+            print(self.players[self.current_player] + \
+                ' now has ' + \
+                str(self.purses[self.current_player]) + \
+                ' Gold Coins.')
 
-                winner = self._did_player_win()
-                self.current_player += 1
-                if self.current_player == self.how_many_players: self.current_player = 0
-
-                return winner
-            else:
-                self.current_player += 1
-                if self.current_player == self.how_many_players: self.current_player = 0
-                return True
+            winner = self._did_player_win()
+            self.current_player += 1
+            if self.current_player == self.how_many_players: self.current_player = 0
+            return winner
+            
+        if self.in_penalty_box[self.current_player] and not self.is_getting_out_of_penalty_box:
+            self.current_player += 1
+            if self.current_player == self.how_many_players: self.current_player = 0
+            return True
 
         else:
             print("Answer was corrent!!!!")
