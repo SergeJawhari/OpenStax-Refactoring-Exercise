@@ -6,10 +6,7 @@ class Game:
         self.purses = [0] * 6
         self.in_penalty_box = [0] * 6
 
-        self.pop_questions = []
-        self.science_questions = []
-        self.sports_questions = []
-        self.rock_questions = []
+        self.pop_questions, self.science_questions, self.sports_questions, self.rock_questions = ([] for i in range(4))
 
         self.current_player = 0
         self.is_getting_out_of_penalty_box = False
