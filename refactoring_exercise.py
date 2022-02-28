@@ -102,10 +102,7 @@ class Game:
                 if self.current_player == self.how_many_players: self.current_player = 0
                 return True
 
-
-
         else:
-
             print("Answer was corrent!!!!")
             self.purses[self.current_player] += 1
             print(self.players[self.current_player] + \
