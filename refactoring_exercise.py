@@ -12,8 +12,15 @@ class Game:
             self.sports_questions.append("Sports Question %s" % i)
             self.rock_questions.append("Rock Question %s" % i)
 
-    def is_playable(self):
-        return self.how_many_players >= 2
+    # This property will get the name of the current player so that the self.players[self.current_player] doesn't have to
+    # get called every time.
+    @property
+    def player_name(self):
+        return self.players[self.current_player]
+
+    @property
+    def how_many_players(self):
+        return len(self.players)
 
     def add(self, player_name):
         self.players.append(player_name)
@@ -23,15 +30,23 @@ class Game:
         print("They are player number %s" % self.how_many_players)
         return True
 
+    # Placed all categories into 3 if statements instead of 9.
     @property
-    def how_many_players(self):
-        return len(self.players)
+    def _current_category(self):
+        if self.places[self.current_player] == 0 or self.places[self.current_player] == 4 or self.places[self.current_player] == 8:
+            return 'Pop'
+        if self.places[self.current_player] == 1 or self.places[self.current_player] == 5 or self.places[self.current_player] == 9:
+            return 'Science'
+        if self.places[self.current_player] == 2 or self.places[self.current_player] == 6 or self.places[self.current_player] == 10:
+            return 'Sports'
+        else:
+            return 'Rock'
 
-    # This property will get the name of the current player so that the self.players[self.current_player] doesn't have to
-    # get called every time.
-    @property
-    def player_name(self):
-        return self.players[self.current_player]
+    def _ask_question(self):
+        if self._current_category == 'Pop': print(self.pop_questions.pop(0))
+        if self._current_category == 'Science': print(self.science_questions.pop(0))
+        if self._current_category == 'Sports': print(self.sports_questions.pop(0))
+        if self._current_category == 'Rock': print(self.rock_questions.pop(0))
 
     # This function will handle moving spaces to cover for the three lines. and displaying the text.
     def move_places(self, roll):
@@ -61,23 +76,22 @@ class Game:
             self.move_places(roll)
             self._ask_question()
 
-    def _ask_question(self):
-        if self._current_category == 'Pop': print(self.pop_questions.pop(0))
-        if self._current_category == 'Science': print(self.science_questions.pop(0))
-        if self._current_category == 'Sports': print(self.sports_questions.pop(0))
-        if self._current_category == 'Rock': print(self.rock_questions.pop(0))
+    # This function defines the loser text and displays it.
+    def winner_text(self):
+        print("Answer was correct!!!!")
+        self.purses[self.current_player] += 1
+        print(self.player_name + \
+            ' now has ' + \
+            str(self.purses[self.current_player]) + \
+            ' Gold Coins.')
 
-    # Placed all categories into 3 if statements instead of 9.
-    @property
-    def _current_category(self):
-        if self.places[self.current_player] == 0 or self.places[self.current_player] == 4 or self.places[self.current_player] == 8:
-            return 'Pop'
-        if self.places[self.current_player] == 1 or self.places[self.current_player] == 5 or self.places[self.current_player] == 9:
-            return 'Science'
-        if self.places[self.current_player] == 2 or self.places[self.current_player] == 6 or self.places[self.current_player] == 10:
-            return 'Sports'
-        else:
-            return 'Rock'
+    def _did_player_win(self):
+        return not (self.purses[self.current_player] == 6)
+
+    # This function will move on to the next player.
+    def next_player(self):
+        self.current_player += 1
+        if self.current_player == self.how_many_players: self.current_player = 0
 
     # Removed redundant code and put it into a function.
     def was_correctly_answered(self):
@@ -97,6 +111,11 @@ class Game:
             self.next_player()
             return winner
 
+    # This function defines the loser text and displays it.
+    def loser_text(self):
+        print('Question was incorrectly answered')
+        print(self.player_name + " was sent to the penalty box")
+
     # Removed string texts and put it inside of a defined print function.
     def wrong_answer(self):
         self.loser_text()
@@ -104,27 +123,8 @@ class Game:
         self.next_player()
         return True
 
-    def _did_player_win(self):
-        return not (self.purses[self.current_player] == 6)
-
-    # This function will move on to the next player.
-    def next_player(self):
-        self.current_player += 1
-        if self.current_player == self.how_many_players: self.current_player = 0
-
-    # This function defines the loser text and displays it.
-    def loser_text(self):
-        print('Question was incorrectly answered')
-        print(self.player_name + " was sent to the penalty box")
-
-    # This function defines the loser text and displays it.
-    def winner_text(self):
-        print("Answer was correct!!!!")
-        self.purses[self.current_player] += 1
-        print(self.player_name + \
-            ' now has ' + \
-            str(self.purses[self.current_player]) + \
-            ' Gold Coins.')
+    def is_playable(self):
+        return self.how_many_players >= 2
 
 from random import randrange
 
