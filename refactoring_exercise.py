@@ -71,6 +71,7 @@ class Game:
 
     @property
     def _current_category(self):
+        
         if self.places[self.current_player] == 0: return 'Pop'
         if self.places[self.current_player] == 4: return 'Pop'
         if self.places[self.current_player] == 8: return 'Pop'
@@ -123,7 +124,6 @@ class Game:
             ' now has ' + \
             str(self.purses[self.current_player]) + \
             ' Gold Coins.')
-
 
 from random import randrange
 
