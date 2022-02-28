@@ -1,12 +1,8 @@
 
 class Game:
     def __init__(self):
-        self.players = []
-        self.places = [0] * 6
-        self.purses = [0] * 6
-        self.in_penalty_box = [0] * 6
-
-        self.pop_questions, self.science_questions, self.sports_questions, self.rock_questions = ([] for i in range(4))
+        self.players, self.pop_questions, self.science_questions, self.sports_questions, self.rock_questions = ([] for i in range(5))
+        self.places, self.purses, self.in_penalty_box = ([0] * 6 for i in range(3))
 
         self.current_player = 0
         self.is_getting_out_of_penalty_box = False
