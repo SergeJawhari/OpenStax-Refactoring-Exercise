@@ -30,7 +30,7 @@ class Game:
         self.in_penalty_box[self.how_many_players] = False
 
         print(player_name + " was added")
-        print("They are player number %s" % len(self.players))
+        print("They are player number %s" % self.how_many_players)
 
         return True
 
@@ -101,12 +101,12 @@ class Game:
 
                 winner = self._did_player_win()
                 self.current_player += 1
-                if self.current_player == len(self.players): self.current_player = 0
+                if self.current_player == self.how_many_players: self.current_player = 0
 
                 return winner
             else:
                 self.current_player += 1
-                if self.current_player == len(self.players): self.current_player = 0
+                if self.current_player == self.how_many_players: self.current_player = 0
                 return True
 
 
@@ -122,7 +122,7 @@ class Game:
 
             winner = self._did_player_win()
             self.current_player += 1
-            if self.current_player == len(self.players): self.current_player = 0
+            if self.current_player == self.how_many_players: self.current_player = 0
 
             return winner
 
@@ -132,7 +132,7 @@ class Game:
         self.in_penalty_box[self.current_player] = True
 
         self.current_player += 1
-        if self.current_player == len(self.players): self.current_player = 0
+        if self.current_player == self.how_many_players: self.current_player = 0
         return True
 
     def _did_player_win(self):
