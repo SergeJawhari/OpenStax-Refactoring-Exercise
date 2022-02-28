@@ -84,13 +84,7 @@ class Game:
 
     def was_correctly_answered(self):
         if self.in_penalty_box[self.current_player] and self.is_getting_out_of_penalty_box:
-            print('Answer was correct!!!!')
-            self.purses[self.current_player] += 1
-            print(self.players[self.current_player] + \
-                ' now has ' + \
-                str(self.purses[self.current_player]) + \
-                ' Gold Coins.')
-
+            self.winner_text()
             winner = self._did_player_win()
             self.next_player()
             return winner
@@ -100,23 +94,14 @@ class Game:
             return True
 
         else:
-            print("Answer was corrent!!!!")
-            self.purses[self.current_player] += 1
-            print(self.players[self.current_player] + \
-                ' now has ' + \
-                str(self.purses[self.current_player]) + \
-                ' Gold Coins.')
-
+            self.winner_text()
             winner = self._did_player_win()
             self.next_player()
-
             return winner
 
     def wrong_answer(self):
-        print('Question was incorrectly answered')
-        print(self.players[self.current_player] + " was sent to the penalty box")
+        self.loser_text()
         self.in_penalty_box[self.current_player] = True
- 
         self.next_player()
         return True
 
@@ -126,6 +111,19 @@ class Game:
     def next_player(self):
         self.current_player += 1
         if self.current_player == self.how_many_players: self.current_player = 0
+
+    def loser_text(self):
+        print('Question was incorrectly answered')
+        print(self.players[self.current_player] + " was sent to the penalty box")
+
+    def winner_text(self):
+        print("Answer was correct!!!!")
+        self.purses[self.current_player] += 1
+        print(self.players[self.current_player] + \
+            ' now has ' + \
+            str(self.purses[self.current_player]) + \
+            ' Gold Coins.')
+
 
 from random import randrange
 
