@@ -92,13 +92,11 @@ class Game:
                 ' Gold Coins.')
 
             winner = self._did_player_win()
-            self.current_player += 1
-            if self.current_player == self.how_many_players: self.current_player = 0
+            self.next_player()
             return winner
-            
+
         if self.in_penalty_box[self.current_player] and not self.is_getting_out_of_penalty_box:
-            self.current_player += 1
-            if self.current_player == self.how_many_players: self.current_player = 0
+            self.next_player()
             return True
 
         else:
@@ -110,8 +108,7 @@ class Game:
                 ' Gold Coins.')
 
             winner = self._did_player_win()
-            self.current_player += 1
-            if self.current_player == self.how_many_players: self.current_player = 0
+            self.next_player()
 
             return winner
 
@@ -119,14 +116,16 @@ class Game:
         print('Question was incorrectly answered')
         print(self.players[self.current_player] + " was sent to the penalty box")
         self.in_penalty_box[self.current_player] = True
-
-        self.current_player += 1
-        if self.current_player == self.how_many_players: self.current_player = 0
+ 
+        self.next_player()
         return True
 
     def _did_player_win(self):
         return not (self.purses[self.current_player] == 6)
 
+    def next_player(self):
+        self.current_player += 1
+        if self.current_player == self.how_many_players: self.current_player = 0
 
 from random import randrange
 
