@@ -138,10 +138,6 @@ class Game:
         self.next_player()
         return True
 
-    # This function is not used in the code but is a function to decide if the game is playable.
-    def is_playable(self):
-        return self.how_many_players >= 2
-
 from random import randrange
 
 if __name__ == '__main__':

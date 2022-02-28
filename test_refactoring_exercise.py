@@ -41,23 +41,6 @@ class TestRefactoringExercise(unittest.TestCase):
 
         self.assertEqual(game.how_many_players, 3)
 
-    # Verify that the game can be played with 2 or more players. 
-    def test_game_is_playable(self):
-        game = Game()
-
-        game.add('Chet')
-        game.add('Bob')
-
-        self.assertTrue(game.is_playable())
-
-    # Verify that the game cannot be played with less than 2 players. 
-    def test_game_is_not_playable(self):
-        game = Game()
-
-        game.add('Chet')
-
-        self.assertFalse(game.is_playable())
-
     # Verify that the question will be incremented every time the category is called upon.
     def test_next_question_up(self):
         game = Game()
