@@ -19,10 +19,8 @@ class Game:
         self.players.append(player_name)
         # organized initializations to fit on one line based on their values.
         self.places[self.how_many_players], self.purses[self.how_many_players], self.in_penalty_box[self.how_many_players] = 0, 0, False
-
         print(player_name + " was added")
         print("They are player number %s" % self.how_many_players)
-
         return True
 
     @property
@@ -38,6 +36,7 @@ class Game:
     # This function will handle moving spaces to cover for the three lines. and displaying the text.
     def move_places(self, roll):
         self.places[self.current_player] += roll
+
         if self.places[self.current_player] > 11:
             self.places[self.current_player] -= 12
             print(self.player_name + \
@@ -51,15 +50,13 @@ class Game:
 
         if self.in_penalty_box[self.current_player] and roll % 2 != 0:
             self.is_getting_out_of_penalty_box = True
-
             print("%s is getting out of the penalty box" % self.player_name)
             self.move_places(roll) # Composed multiple lines of code into a function, it is cleaner and removes redundancy.
             self._ask_question()
-
+            
         if self.in_penalty_box[self.current_player] and roll % 2 == 0:
             print("%s is not getting out of the penalty box" % self.player_name)
             self.is_getting_out_of_penalty_box = False
-
         else:
             self.move_places(roll)
             self._ask_question()
