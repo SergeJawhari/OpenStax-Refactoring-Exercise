@@ -18,10 +18,12 @@ class Game:
     def player_name(self):
         return self.players[self.current_player]
 
+    # This property defines how many players are in the game.
     @property
     def how_many_players(self):
         return len(self.players)
 
+    # This function will add a new player to the game.
     def add(self, player_name):
         self.players.append(player_name)
         # organized initializations to fit on one line based on their values.
@@ -42,6 +44,7 @@ class Game:
         else:
             return 'Rock'
 
+    # This function will ask the question based on the current category.
     def _ask_question(self):
         if self._current_category == 'Pop': print(self.pop_questions.pop(0))
         if self._current_category == 'Science': print(self.science_questions.pop(0))
@@ -59,19 +62,25 @@ class Game:
                 str(self.places[self.current_player]))
             print("The category is %s" % self._current_category)
             
+    # This function will conduct a roll and decide if a player will get out of the penalty box, stay in it, 
+    # and if the latter, how many spaces they will progress on the board.
     def roll(self, roll):
         print("%s is the current player" % self.player_name)
         print("They have rolled a %s" % roll)
 
+        # If the player is in the penalty boc and rolls an odd number, they will get out of the penalty box and progress according to their roll value.
         if self.in_penalty_box[self.current_player] and roll % 2 != 0:
             self.is_getting_out_of_penalty_box = True
             print("%s is getting out of the penalty box" % self.player_name)
             self.move_places(roll) # Composed multiple lines of code into a function, it is cleaner and removes redundancy.
             self._ask_question()
-            
+        
+        # If the player is in the penalty box and rolls an even number, they will not get out of the penalty box, hence not progressing.
         if self.in_penalty_box[self.current_player] and roll % 2 == 0:
             print("%s is not getting out of the penalty box" % self.player_name)
             self.is_getting_out_of_penalty_box = False
+
+        # If the player is not in the penalty box, they will progress according to their roll value.
         else:
             self.move_places(roll)
             self._ask_question()
@@ -85,6 +94,7 @@ class Game:
             str(self.purses[self.current_player]) + \
             ' Gold Coins.')
 
+    # This function will decide if a player has won. i.e. reaching 6 coins.
     def _did_player_win(self):
         return not (self.purses[self.current_player] == 6)
 
@@ -95,16 +105,21 @@ class Game:
 
     # Removed redundant code and put it into a function.
     def was_correctly_answered(self):
+        # If the player answers correctly and is in the penalty box, and IS getting out, they will win points, text will be produced
+        # and the game will move on to the next player
         if self.in_penalty_box[self.current_player] and self.is_getting_out_of_penalty_box:
             self.winner_text()
             winner = self._did_player_win()
             self.next_player()
             return winner
 
+        # If the player answers correctly and is in the penalty box, and is NOT getting out, they will not win and the game will move onto the next player.
         if self.in_penalty_box[self.current_player] and not self.is_getting_out_of_penalty_box:
             self.next_player()
             return True
 
+        # If the player answers correctly and is not in the penalty box, they will win points, text will be produced
+        # and the game will move on to the next player        
         else:
             self.winner_text()
             winner = self._did_player_win()
@@ -123,6 +138,7 @@ class Game:
         self.next_player()
         return True
 
+    # This function is not used in the code but is a function to decide if the game is playable.
     def is_playable(self):
         return self.how_many_players >= 2
 
