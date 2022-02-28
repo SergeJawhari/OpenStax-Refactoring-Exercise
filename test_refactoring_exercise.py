@@ -6,6 +6,7 @@ from refactoring_exercise import Game # Importing the Game class from the main r
 # This class consists of all test scenarios for the Game class
 class TestRefactoringExercise(unittest.TestCase):
 
+
     # Verify that the correct player was added to the roster.
     def test_correct_player_added(self):
         game = Game()
@@ -18,11 +19,16 @@ class TestRefactoringExercise(unittest.TestCase):
         in_right_position = False
 
         game.add('Chet')
-        in_right_position = len(game.players) == 1
+        in_right_position1 = len(game.players) == 1
         game.add('Bob')
-        in_right_position = len(game.players) == 2
+        in_right_position2 = len(game.players) == 2
         game.add('Phil')
-        in_right_position = len(game.players) == 3
+        in_right_position3 = len(game.players) == 3
+
+        if in_right_position1 and in_right_position2 and in_right_position3:
+            in_right_position = True
+        else:
+            in_right_position = False
 
         self.assertTrue(in_right_position)
 
@@ -342,6 +348,178 @@ class TestRefactoringExercise(unittest.TestCase):
         sys.stdout = sys.__stdout__ 
 
         self.assertEqual(printToString.getvalue(), 'Rock Question 0\n')
+
+    # This test will test if pop questions are being iterated.
+    def test_pop_questions_being_iterated(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.places[game.current_player] = 0
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Pop Question 0\n'
+
+        game.places[game.current_player] = 4
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Pop Question 1\n'
+
+        self.assertTrue(verify_first)
+
+        game.places[game.current_player] = 8
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Pop Question 2\n'
+
+        self.assertTrue(verify_first)
+
+    # This test will test if science questions are being iterated.
+    def test_science_questions_being_iterated(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.places[game.current_player] = 1
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Science Question 0\n'
+
+        game.places[game.current_player] = 5
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Science Question 1\n'
+
+        self.assertTrue(verify_first)
+
+        game.places[game.current_player] = 9
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Science Question 2\n'
+
+        self.assertTrue(verify_first)
+
+    # This test will test if sports questions are being iterated.
+    def test_sports_questions_being_iterated(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.places[game.current_player] = 2
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Sports Question 0\n'
+
+        game.places[game.current_player] = 6
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Sports Question 1\n'
+
+        self.assertTrue(verify_first)
+
+        game.places[game.current_player] = 10
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Sports Question 2\n'
+
+        self.assertTrue(verify_first)
+
+    # This test will test if rock questions are being iterated.
+    def test_rock_questions_being_iterated(self):
+        game = Game()
+
+        game.add('Chet')
+
+        game.places[game.current_player] = 3
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Rock Question 0\n'
+
+        game.places[game.current_player] = 7
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Rock Question 1\n'
+
+        self.assertTrue(verify_first)
+
+        game.places[game.current_player] = 11
+
+        printToString = io.StringIO() 
+        sys.stdout = printToString   
+
+        game._ask_question()
+
+        sys.stdout = sys.__stdout__ 
+
+        verify_first = printToString.getvalue() == 'Rock Question 2\n'
+
+        self.assertTrue(verify_first)
 
     # Verify that once a question is asked, it is popped from the stack.
     def test_question_gets_popped_from_stack(self):
